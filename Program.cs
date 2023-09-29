@@ -60,18 +60,18 @@ namespace Arch.Archetype.Issue1
                     .WithAll<PermanentComponent, TempComponent2>();
 
                 world.Query(
-                    in tempComponent1Query,
-                    (in Entity entity, ref TempComponent1 component) =>
+                    in tempComponent2Query,
+                    (in Entity entity, ref TempComponent2 component) =>
                     {
                         if (--component.RemainedIterations == 0)
                         {
-                            entity.Remove<TempComponent1>();
+                            entity.Remove<TempComponent2>();
                         }
                     }
                 );
-
-                //Now I expecting only one archetype with only PermanentComponent...
             }
+
+            //Now I expecting only one archetype with only PermanentComponent...
             #endregion
 
             #region Collect resulting entity archetypes
@@ -88,7 +88,7 @@ namespace Arch.Archetype.Issue1
                     var archetype = entity.GetArchetype();
 
                     sb.AppendLine($"Entities count: {archetype.Entities.ToString()}");
-                    sb.AppendLine(String.Join(", ", archetype.Types));
+                    sb.AppendLine(String.Join(", \n", archetype.Types));
 
                     outputMessagesSet.Add(sb.ToString());
                 }
